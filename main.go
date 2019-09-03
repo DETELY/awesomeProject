@@ -1,6 +1,7 @@
 package main
 
 import (
+	. "./widgets"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"io/ioutil"
@@ -11,34 +12,35 @@ var treeView *walk.TreeView
 
 func main() {
 	_, _ = MainWindow{
-		Title:   "GoPad",
+		Title:   "Tester",
 		MinSize: Size{600, 400},
 		Layout:  HBox{},
 		Children: []Widget{
-			VSplitter{
-				MinSize: Size{Width: 50, Height: 400},
+			HSplitter{
 				Children: []Widget{
-					TreeView{AssignTo: &treeView},
-					PushButton{
-						MinSize: Size{Width: 50, Height: 10},
-						Text:    "Generate tests",
-					},
-				},
-			},
-			VSplitter{
-				MinSize: Size{Width: 550, Height: 400},
-				Children: []Widget{
-					HSplitter{
-						MinSize: Size{Width: 550, Height: 20},
+					VSplitter{
 						Children: []Widget{
-							ComboBox{
-
+							CreateTreeView(Size{Width: 50, Height: 390}),
+							PushButton{
+								Text: "Generate tests",
 							},
 						},
 					},
-					TextEdit{
-						AssignTo: &edit,
-						MinSize:  Size{Width: 550, Height: 380}},
+					VSplitter{
+						Children: []Widget{
+							HSplitter{
+								Children: []Widget{
+									CreateDialectPair(Size{
+										Width:  50,
+										Height: 20,
+									}),
+								},
+							},
+							TextEdit{
+								AssignTo: &edit,
+							},
+						},
+					},
 				},
 			},
 		},
